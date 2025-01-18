@@ -5,12 +5,32 @@ import WeatherDetails from "../screens/WeatherDetails";
 
 const Stack = createNativeStackNavigator();
 export default function AppNavigation() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Current Weather" component={WeatherDetails}/>
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#ffffb3",
+          },
+          headerShadowVisible: false,
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Current Weather"
+          component={WeatherDetails}
+          options={{
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontSize: 25,
+            },
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
