@@ -1,6 +1,14 @@
-import { View, Text, StyleSheet,Button, TouchableOpacity } from "react-native";
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { useContext } from "react";
+import { FavouritesContext } from "../context/AppContext";
 export default function WeatherDetails({ route }) {
+  const { favourites, setFavourites } = useContext(FavouritesContext);
   const { weatherData } = route.params;
   const { name: city, sys, main, wind, dt, weather, clouds } = weatherData;
   //const country = sys.country;
@@ -9,11 +17,25 @@ export default function WeatherDetails({ route }) {
   const temperature = (main.temp - 273.15).toFixed(1);
   const feelsLike = (main.feels_like - 273.15).toFixed(1);
   const humidity = main.humidity;
-  const windSpeed = (wind.speed*3.6).toFixed(1);
+  const windSpeed = (wind.speed * 3.6).toFixed(1);
   const cloudiness = clouds.all;
   const dateTime = new Date(dt * 1000);
   const date = dateTime.toDateString();
-  console.log(dateTime);
+  const addFavourite = () => {
+    setFavourites((prevFavourites) => {
+      if (!prevFavourites.includes(city)) {
+        const updatedFavourites = [...prevFavourites, city];
+        Alert.alert("Added to Favourites");
+        //console.log(updatedFavourites);
+        return updatedFavourites;
+      } else {
+        Alert.alert("Already in Favourites!!!");
+        //console.log(prevFavourites);
+        return prevFavourites;
+      }
+    });
+  };
+  //console.log(dateTime);
   return (
     <View style={styles.container}>
       <Text style={styles.city}>{city}</Text>
@@ -31,15 +53,15 @@ export default function WeatherDetails({ route }) {
           <Text style={{ fontWeight: "bold" }}>Wind Speed</Text>
         </View>
         <View>
-          <Text style={styles.skyItem}>   {humidity}%</Text>
+          <Text style={styles.skyItem}> {humidity}%</Text>
           <Text style={{ fontWeight: "bold" }}>Humidity</Text>
         </View>
         <View>
-          <Text style={styles.skyItem}>     {cloudiness}%</Text>
+          <Text style={styles.skyItem}> {cloudiness}%</Text>
           <Text style={{ fontWeight: "bold" }}>cloudiness</Text>
         </View>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={addFavourite}>
         <Text style={styles.button}>Favourite</Text>
       </TouchableOpacity>
     </View>
@@ -88,11 +110,11 @@ const styles = StyleSheet.create({
   sky: {
     height: 150,
     width: 350,
-    borderRadius:20,
+    borderRadius: 20,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop:20,
+    marginTop: 20,
     borderWidth: 3,
   },
   skyItem: {
@@ -106,6 +128,7 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 10,
     width: 100,
+    height: 25,
     textAlign:"center"
-  }
+  },
 });

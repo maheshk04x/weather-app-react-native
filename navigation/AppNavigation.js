@@ -22,11 +22,11 @@ const DrawerStack = () => {
         drawerActiveTintColor: "black",
         drawerContentStyle: {
           backgroundColor: "#ffffb3",
-          },
-          drawerLabelStyle: {
-              fontSize: 17,
-              fontWeight: "bold",
-        }
+        },
+        drawerLabelStyle: {
+          fontSize: 17,
+          fontWeight: "bold",
+        },
       }}
     >
       <Drawer.Screen
@@ -34,8 +34,16 @@ const DrawerStack = () => {
         component={HomeScreen}
         options={{ headerTitle: "" }}
       />
-      <Drawer.Screen name="Favourites" component={Favourites} options={{headerTitle:"Locations", headerTitleAlign:"center"}}/>
-      <Drawer.Screen name="Recents" component={Recents} />
+      <Drawer.Screen
+        name="Favourites"
+        component={Favourites}
+        options={{
+          headerTitle: "Locations",
+          headerTitleAlign: "center",
+          headerTitleStyle: { fontSize: 25, fontWeight: "bold" },
+        }}
+      />
+      <Drawer.Screen name="Recent searches" component={Recents} />
     </Drawer.Navigator>
   );
 };

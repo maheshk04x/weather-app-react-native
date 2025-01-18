@@ -4,25 +4,36 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
+  StatusBar,
 } from "react-native";
 import { useState } from "react";
 import axios from "axios";
-export default function HomeScreen() {
+
+export default function HomeScreen({ navigation }) {
   const [input, setInput] = useState("");
   const [weather, setWeather] = useState(null);
   const fetchWeather = async () => {
+    if (input.trim() === "") {
+      Alert.alert("Please enter a city name");
+      return;
+    }
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?appid=0f0bd39c94dac8bcc9e15ce29468fed1&q=${input}`
       );
       setWeather(response.data);
+      navigation.navigate("Current Weather", { weatherData: response.data });
+      setInput("");
     } catch (error) {
       console.log("Error fetching weather");
+      Alert.alert("City not found");
       setWeather(null);
     }
   };
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="black" />
       <View>
         <Text style={styles.title}>Add city name to fetch weather</Text>
         <TextInput
@@ -35,12 +46,6 @@ export default function HomeScreen() {
           <Text style={styles.buttonText}>Fetch Weather</Text>
         </TouchableOpacity>
       </View>
-
-      {weather && (
-        <View>
-          <Text>{weather.name}</Text>
-        </View>
-      )}
     </View>
   );
 }
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight:"bold",
+    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 20,
   },
