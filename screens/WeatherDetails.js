@@ -4,9 +4,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Image,
 } from "react-native";
 import { useContext } from "react";
 import { FavouritesContext } from "../context/AppContext";
+
+const windIcon = require("../assets/wind.png");
+const humidityIcon = require("../assets/humidity.png");
+const cloudIcon = require("../assets/cloud.png");
+const img = require("../assets/adaptive-icon.png");
 export default function WeatherDetails({ route }) {
   const { favourites, setFavourites } = useContext(FavouritesContext);
   const { weatherData } = route.params;
@@ -49,15 +55,27 @@ export default function WeatherDetails({ route }) {
       </Text>
       <View style={styles.sky}>
         <View>
+          <Image
+            source={windIcon}
+            style={{ width: 60, height: 60, resizeMode: "contain" }}
+          />
           <Text style={styles.skyItem}>{windSpeed} km/h</Text>
           <Text style={{ fontWeight: "bold" }}>Wind Speed</Text>
         </View>
         <View>
+          <Image
+            source={humidityIcon}
+            style={{ width: 60, height: 60, resizeMode: "contain" }}
+          />
           <Text style={styles.skyItem}> {humidity}%</Text>
           <Text style={{ fontWeight: "bold" }}>Humidity</Text>
         </View>
         <View>
-          <Text style={styles.skyItem}> {cloudiness}%</Text>
+          <Image
+            source={cloudIcon}
+            style={{ width: 60, height: 60, resizeMode: "contain" }}
+          />
+          <Text style={styles.skyItem}>    {cloudiness}%</Text>
           <Text style={{ fontWeight: "bold" }}>cloudiness</Text>
         </View>
       </View>
@@ -129,6 +147,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 100,
     height: 25,
-    textAlign:"center"
+    textAlign: "center",
   },
 });
