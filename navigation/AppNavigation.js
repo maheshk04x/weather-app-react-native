@@ -7,6 +7,7 @@ import WeatherDetails from "../screens/WeatherDetails";
 import Favourites from "../screens/Favourites";
 //import Recents from "../screens/Recents";
 import RecentsToggle from "./RecentsToggle";
+import Pokemon from "../screens/pokemon/Pokemon";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -45,6 +46,7 @@ const DrawerStack = () => {
           headerTitleStyle: { fontSize: 25, fontWeight: "bold" },
         }}
       />
+      <Drawer.Screen name="Pokemon" component={Pokemon}/>
     </Drawer.Navigator>
   );
 };
