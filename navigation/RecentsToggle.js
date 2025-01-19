@@ -7,7 +7,7 @@ import { FavouritesContext } from '../context/AppContext'
 
 
 const RecentsToggle = (props) => {
-    const {favourites} = useContext(FavouritesContext); 
+    const {recents} = useContext(FavouritesContext); 
     const [isDrawerOpen , setIsDrawerOpen] = useState(false)
     return (
       <DrawerContentScrollView {...props}>
@@ -20,7 +20,7 @@ const RecentsToggle = (props) => {
         />
         {isDrawerOpen && (
           <View>
-            {favourites.slice(-5).reverse().map((city, index) => (
+            {recents.slice(-5).reverse().map((city, index) => (
               <Text key={index} style={styles.recents}>
                 {" "}
                 {index + 1}.{city}

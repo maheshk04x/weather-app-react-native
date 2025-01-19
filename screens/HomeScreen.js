@@ -9,8 +9,11 @@ import {
 } from "react-native";
 import { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { FavouritesContext } from "../context/AppContext";
 
 export default function HomeScreen({ navigation }) {
+  const {recents,setRecents} = useContext(FavouritesContext);
   const [input, setInput] = useState("");
   const [weather, setWeather] = useState(null);
   const fetchWeather = async () => {
@@ -25,6 +28,10 @@ export default function HomeScreen({ navigation }) {
       setWeather(response.data);
       navigation.navigate("Current Weather", { weatherData: response.data });
       setInput("");
+      setRecents((prevRecents) => {
+          const updatedRecents = [...prevRecents, input];
+          return updatedRecents;
+      })
     } catch (error) {
       console.log("Error fetching weather");
       Alert.alert("City not found");
