@@ -5,7 +5,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "../screens/HomeScreen";
 import WeatherDetails from "../screens/WeatherDetails";
 import Favourites from "../screens/Favourites";
-import Recents from "../screens/Recents";
+//import Recents from "../screens/Recents";
+import RecentsToggle from "./RecentsToggle";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -13,6 +14,7 @@ const Drawer = createDrawerNavigator();
 const DrawerStack = () => {
   return (
     <Drawer.Navigator
+      drawerContent={(props) => <RecentsToggle {...props} />}
       initialRouteName="Home"
       screenOptions={{
         headerStyle: {
@@ -20,7 +22,7 @@ const DrawerStack = () => {
         },
         headerShadowVisible: false,
         drawerActiveTintColor: "black",
-        drawerContentStyle: {
+        drawerStyle: {
           backgroundColor: "#ffffb3",
         },
         drawerLabelStyle: {
@@ -43,7 +45,6 @@ const DrawerStack = () => {
           headerTitleStyle: { fontSize: 25, fontWeight: "bold" },
         }}
       />
-      <Drawer.Screen name="Recent searches" component={Recents} />
     </Drawer.Navigator>
   );
 };
